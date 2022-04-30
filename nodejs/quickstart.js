@@ -14,6 +14,10 @@
     process.exit(1)
   }
   INDEX_NAME = process.env.INDEX_NAME
+  if (typeof INDEX_NAME === 'undefined') {
+    console.log('INDEX_NAME is not defined.')
+    process.exit(1)
+  }
 
   INDEXES_URL = `${API_URL}/indexes`
   const headers = {

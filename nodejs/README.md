@@ -1,6 +1,7 @@
 ## Prerequisites
 
 - Node.js
+- The following environment variables are set: `API_URL`, `API_KEY`, `INDEX_NAME`.
 
 ## Install dependencies
 
