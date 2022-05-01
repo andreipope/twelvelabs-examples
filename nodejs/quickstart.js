@@ -49,16 +49,17 @@
 
   INDEX_TASK_URL = `${API_URL}/indexes/tasks`
   
-    data = new FormData()
-    data.append('file', fs.createReadStream('/Users/andrei/Downloads/test.mp4'))
-    data.append('INDEX_ID', INDEX_ID)
-    data.append('language', 'en')
+    const file_param = fs.createReadStream('/Users/andrei/Downloads/test.mp4')
+    let formData = new FormData()
+    formData.append('file', file_param)
+    formData.append('INDEX_ID', INDEX_ID)
+    formData.append('language', 'en')
     
     config = {
       method: 'post',
       url: INDEX_TASK_URL,
       headers: headers,
-      data : data
+      data : formData
     };
     resp = await axios(config)
     response = await resp.data
