@@ -3,23 +3,23 @@
   const axios = require('axios');
   const fs = require('fs')
 
-  API_URL = process.env.API_URL
+  const API_URL = process.env.API_URL
   if (typeof API_URL === 'undefined') {
     console.log('API_URL is not defined.')
     process.exit(1)
   }
-  API_KEY = process.env.API_KEY
+  const API_KEY = process.env.API_KEY
   if (typeof API_KEY === 'undefined') {
     console.log('API_KEY is not defined.')
     process.exit(1)
   }
-  INDEX_NAME = process.env.INDEX_NAME
+  const INDEX_NAME = process.env.INDEX_NAME
   if (typeof INDEX_NAME === 'undefined') {
     console.log('INDEX_NAME is not defined.')
     process.exit(1)
   }
 
-  INDEXES_URL = `${API_URL}/indexes`
+  const INDEXES_URL = `${API_URL}/indexes`
   const headers = {
     'x-api-key': API_KEY,
   }
@@ -43,56 +43,56 @@
   
   let resp = await axios(config)
   let response = await resp.data
-  INDEX_ID = response._id
+  const INDEX_ID = response._id
   console.log(resp.status)
   console.log(response)
 
-  INDEX_TASK_URL = `${API_URL}/indexes/tasks`
+  const INDEX_TASK_URL = `${API_URL}/indexes/tasks`
   
-    const file_param = fs.createReadStream('/Users/andrei/Downloads/test.mp4')
-    let formData = new FormData()
-    formData.append('file', file_param)
-    formData.append('INDEX_ID', INDEX_ID)
-    formData.append('language', 'en')
+  const file_param = fs.createReadStream('/Users/andrei/Downloads/test.mp4')
+  let formData = new FormData()
+  formData.append('file', file_param)
+  formData.append('INDEX_ID', INDEX_ID)
+  formData.append('language', 'en')
     
-    config = {
-      method: 'post',
-      url: INDEX_TASK_URL,
-      headers: headers,
-      data : formData
-    };
-    resp = await axios(config)
-    response = await resp.data
-    TASK_ID = response._id
-    console.log(resp.status)
-    console.log(response)
-    
-    INDEX_TASK_STATUS_URL = `${API_URL}/indexes/tasks/${TASK_ID}`
-    config = {
-      method: 'get',
-      url: INDEX_TASK_STATUS_URL,
-      headers: headers,
-    };
-    resp = await axios(config)
-    response = await resp.data
-    console.log(response)
-    STATUS = response.status
+  config = {
+    method: 'post',
+    url: INDEX_TASK_URL,
+    headers: headers,
+    data : formData
+  };
+  resp = await axios(config)
+  response = await resp.data
+  TASK_ID = response._id
+  console.log(resp.status)
+  console.log(response)
+  
+  const INDEX_TASK_STATUS_URL = `${API_URL}/indexes/tasks/${TASK_ID}`
+  config = {
+    method: 'get',
+    url: INDEX_TASK_STATUS_URL,
+    headers: headers,
+  };
+  resp = await axios(config)
+  response = await resp.data
+  console.log(response)
+  const STATUS = response.status
 
-    SEARCH_URL = `${API_URL}/search`
-    data = JSON.stringify(
-      {
-      "query": "car accident",
-      "index_id": INDEX_ID,
-      "search_options": ["visual", "conversation"],
-    })
-    config = {
-      method: 'post',
-      url: SEARCH_URL,
-      headers: headers,
-      data: data
-    }
-    resp = await axios(config)
-    response = await resp.data
-    console.log(response)
+  const SEARCH_URL = `${API_URL}/search`
+  data = JSON.stringify(
+    {
+    "query": "car accident",
+    "index_id": INDEX_ID,
+    "search_options": ["visual", "conversation"],
+  })
+  config = {
+    method: 'post',
+    url: SEARCH_URL,
+    headers: headers,
+    data: data
+  }
+  resp = await axios(config)
+  response = await resp.data
+  console.log(response)
 
 })()
