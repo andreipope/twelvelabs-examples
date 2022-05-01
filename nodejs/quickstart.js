@@ -76,6 +76,7 @@
     resp = await axios(config)
     response = await resp.data
     console.log(response)
+    STATUS = response.status
 
     SEARCH_URL = `${API_URL}/search`
     data = JSON.stringify(
