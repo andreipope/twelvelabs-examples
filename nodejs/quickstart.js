@@ -1,3 +1,5 @@
+const { exit } = require('process');
+
 (async () => {
   const FormData = require('form-data')
   const axios = require('axios');
@@ -13,11 +15,7 @@
     console.log('API_KEY is not defined.')
     process.exit(1)
   }
-  const INDEX_NAME = process.env.INDEX_NAME
-  if (typeof INDEX_NAME === 'undefined') {
-    console.log('INDEX_NAME is not defined.')
-    process.exit(1)
-  }
+  const INDEX_NAME = '<YOUR_INDEX_NAME>' // Replace this with the name of your index
 
   const INDEXES_URL = `${API_URL}/indexes`
   const headers = {
@@ -72,18 +70,21 @@
     method: 'get',
     url: INDEX_TASK_STATUS_URL,
     headers: headers,
-  };
+  }
+
   resp = await axios(config)
   response = await resp.data
   console.log(response)
   const STATUS = response.status
+  console.log(STATUS)
+  
 
   const SEARCH_URL = `${API_URL}/search`
   data = JSON.stringify(
     {
     "query": "car accident",
     "index_id": INDEX_ID,
-    "search_options": ["visual", "conversation"],
+    "search_options": ["visual"],
   })
   config = {
     method: 'post',
