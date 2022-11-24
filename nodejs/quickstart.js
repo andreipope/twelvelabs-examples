@@ -49,7 +49,7 @@ const { exit } = require('process');
   
   const file_param = fs.createReadStream('/Users/andrei/Downloads/test.mp4')
   let formData = new FormData()
-  formData.append('file', file_param)
+  formData.append('video_file', file_param)
   formData.append('INDEX_ID', INDEX_ID)
   formData.append('language', 'en')
     
